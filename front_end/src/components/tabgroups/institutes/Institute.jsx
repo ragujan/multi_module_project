@@ -17,11 +17,7 @@ function Institutes() {
     tab5: Tab5,
   };
   let SelectedTab = Tabs[currentTab];
-  const setBorderBottomToCurrentTab = () => {
-    if (currentTab) {
-      currentTab.current.classList.add("border-b-4");
-    }
-  };
+
 
   useEffect(() => {
     if (currentTab === "") {
@@ -32,12 +28,6 @@ function Institutes() {
     console.log("selected tab is ", SelectedTab);
   }, [currentTab]);
 
-  const handleTabClick = (tabRef) => {
-    if (currentTab && currentTab.current) {
-      currentTab.current.classList.remove("border-b-4");
-    }
-    setCurrentTab(tabRef);
-  };
 
   return (
     <>
@@ -99,12 +89,7 @@ function Institutes() {
         </div>
         {/* tab body */}
         <div className="flex flex-col items-center py-2">
-          {/* {currentTab === tabRef1 ? <Tab1 /> : ""}
-          {currentTab === tabRef2 ? <Tab2 /> : ""}
-          {currentTab === tabRef3 ? <Tab3 /> : ""}
-          {currentTab === tabRef4 ? <Tab4 /> : ""}
-
-          {currentTab === tabRef5 ? <Tab5 /> : ""} */}
+  
           <SelectedTab  />
         </div>
       </div>
