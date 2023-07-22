@@ -8,12 +8,6 @@ import Tab5 from "./tabs/Tab5";
 function Institutes() {
   const tabName = "Institute";
   const [currentTab, setCurrentTab] = useState("tab1");
-  
-  const tabRef1 = useRef(null);
-  const tabRef2 = useRef(null);
-  const tabRef3 = useRef(null);
-  const tabRef4 = useRef(null);
-  const tabRef5 = useRef(null);
 
   const Tabs = {
     tab1: Tab1,
