@@ -6,6 +6,7 @@ import Settings from "../tabgroups/settings/Settings";
 import CustomerList from "../tabgroups/customer_list/CustomerList";
 import logo_image from "../resources/business_logo.png";
 import user_image from "../resources/cat_in_a_cup.jpg";
+import Institutes from "../tabgroups/institutes/Institute";
 
 function Dashboard() {
   const [sideBarState, setSideBarState] = useState(false);
@@ -25,7 +26,7 @@ function Dashboard() {
 
   const TabGroup = {
     home: Home,
-    overview: Overview,
+    institute: Institutes,
     customer_list:CustomerList,
     settings:Settings,
   };

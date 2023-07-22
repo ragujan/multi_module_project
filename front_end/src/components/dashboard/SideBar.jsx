@@ -102,11 +102,11 @@ function SideBar(props) {
           >
             <div
               onClick={() => {
-                props.setCurrentTabGroup("overview");
+                props.setCurrentTabGroup("institute");
               }}
               className="py-2 ml-10"
             >
-              <h1 className="text-sm ">Overview</h1>
+              <h1 className="text-sm ">Institutes</h1>
             </div>
             <div
               onClick={() => {

@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 
 function Overview() {
+  const tabName = "Institutes";
   const [currentTab, setCurrentTab] = useState(null);
+
   const tabRef1 = useRef(null);
   const tabRef2 = useRef(null);
   const tabRef3 = useRef(null);
@@ -32,7 +34,7 @@ function Overview() {
   return (
     <>
       <div className="">
-        <div className="text-2xl font-semibold">Overview</div>
+        <div className="text-2xl font-semibold">{tabName}</div>
         {/* tab header  */}
         <div className="flex flex-row items-center pt-5 overflow-hidden border-b-2 gap-x-3 border-b-slate-500 dark:border-black">
           <h1
