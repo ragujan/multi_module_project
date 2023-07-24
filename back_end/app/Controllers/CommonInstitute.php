@@ -4,16 +4,24 @@ namespace App\Controllers;
 
 use App\Models\CommonInstituteModel;
 use CodeIgniter\I18n\Time;
-
+use CodeIgniter\Exceptions\PageNotFoundException;
 class CommonInstitute extends BaseController
 {
+
+        public function sortByTable($type= null){
+        if($type == null){
+            echo "null";
+        }
+        echo $type;
+
+    }
     public function index()
     {
     }
     public function add()
     {
         date_default_timezone_set("Asia/Calcutta");
-        $input_status =  preg_match('/^[a-z]\w{2,23}[^_]$/i', $_POST['name']);
+        $input_status =  preg_match('/^^[a-z]\w{2,23}$/i', $_POST['name']);
 
             $model = model(CommonInstituteModel::class);
 
@@ -45,5 +53,7 @@ class CommonInstitute extends BaseController
         ];
         echo json_encode($row);
     }
+
+
    
 }

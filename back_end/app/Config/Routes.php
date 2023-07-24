@@ -32,6 +32,7 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 $routes->post('/add_common_institute','CommonInstitute::add');
 $routes->get('/view_common_institutes','CommonInstitute::viewTable');
+$routes->get('/sort_by_common_institute_table/(:segment)','CommonInstitute::sortByTable/$1');
 
 /*
  * --------------------------------------------------------------------
