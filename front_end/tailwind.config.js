@@ -17,6 +17,7 @@ export default {
         "main-lightMode" : "#c8d4e1",
         "secondary-lightMode":"#cbcbcb",
         "lightMode-light-darker":"#efecec",
+        "alertBoxBody":"#413F42"
       }
     },
   },

@@ -2,19 +2,19 @@ import React from "react";
 
 function Table(props) {
   // console.log("props are",props.json)
-  const {setPrevName,setUpdateState,onSortChange,json} = props;
-   
-  const handleSortClick = (sort) =>{
+  const { setPrevName, setUpdateState, onSortChange, json } = props;
+
+  const handleSortClick = (sort) => {
     onSortChange(sort);
-  }
-  const handleUpdateState = (id,name)=>{
-    setPrevName(name)
+  };
+  const handleUpdateState = (id, name) => {
+    setPrevName(name);
     setUpdateState({
-        status: true,
-        id:id,
-        name:name,
-    })
-  }
+      status: true,
+      id: id,
+      name: name,
+    });
+  };
   const DisplayData = json.map((info) => {
     return (
       <tr
@@ -29,11 +29,22 @@ function Table(props) {
           {info.created_at.slice(0, 19)}
         </td>
         <td className="px-6 py-4 whitespace-nowrap">{info.created_by}</td>
+        <td className="px-6 py-4 whitespace-nowrap">{info.updated_at.slice(0, 19)}</td>
+        <td className="px-6 py-4 whitespace-nowrap">{info.updated_by}</td>
         <td className="px-6 py-4 whitespace-nowrap">
-          
-            <button onClick={()=>{handleUpdateState(info.common_institute_division_id,info.division_name)}}  className="px-2 pb-1 rounded-md bg-secondary-blue dark:bg-secondary-lightMode">Update</button>
-          
-          
+          <button
+            onClick={() => {
+              document.body.scrollTop = 0;
+              document.documentElement.scrollTop = 0;
+              handleUpdateState(
+                info.common_institute_division_id,
+                info.division_name
+              );
+            }}
+            className="px-2 pb-1 rounded-md bg-secondary-blue dark:bg-secondary-lightMode"
+          >
+            Update
+          </button>
         </td>
       </tr>
     );
@@ -46,7 +57,6 @@ function Table(props) {
             <th
               onClick={() => {
                 handleSortClick("common_institute_division_id");
-                
               }}
               className="px-6 py-4 cursor-pointer"
             >
@@ -55,7 +65,6 @@ function Table(props) {
             <th
               onClick={() => {
                 handleSortClick("division_name");
-             
               }}
               className="px-6 py-4 cursor-pointer"
             >
@@ -64,7 +73,6 @@ function Table(props) {
             <th
               onClick={() => {
                 handleSortClick("created_at");
-          
               }}
               className="px-6 py-4 cursor-pointer"
             >
@@ -73,11 +81,27 @@ function Table(props) {
             <th
               onClick={() => {
                 handleSortClick("created_by");
-              
               }}
               className="px-6 py-4 cursor-pointer"
             >
               created_by
+            </th>
+            <th
+              onClick={() => {
+                handleSortClick("upated_at");
+              }}
+              className="px-6 py-4 cursor-pointer"
+            >
+              updated_at
+            </th>
+
+            <th
+              onClick={() => {
+                handleSortClick("updated_by");
+              }}
+              className="px-6 py-4 cursor-pointer"
+            >
+              updated_by
             </th>
             <th className="px-6 py-4">Action</th>
           </tr>

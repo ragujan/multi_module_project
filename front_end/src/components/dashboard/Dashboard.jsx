@@ -125,7 +125,7 @@ function Dashboard() {
   }, [searchBarIsVisible, smallScreenState]);
 
   return (
-    <div className="flex flex-col dark:bg-main-lightMode bg-main-blue h-[100vh] ">
+    <div className="flex relative flex-col dark:bg-main-lightMode bg-main-blue h-[100vh] ">
       {/* top section */}
       <div className="flex items-center justify-around px-1 py-4 md:py-2 md:px-4 md:justify-between dark:bg-secondary-lightMode bg-secondary-blue">
         <div className="flex flex-row items-center justify-start ">
@@ -260,7 +260,7 @@ function Dashboard() {
       {/* body section */}
       <div
         ref={bodySectionRef}
-        className="relative flex flex-row px-3 text-white dark:text-black dark:bg-main-lightMode bg-main-blue"
+        className="flex flex-row px-3 text-white  dark:text-black dark:bg-main-lightMode bg-main-blue"
       >
         {/* sidebar */}
 

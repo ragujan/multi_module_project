@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import Table from "../Table";
+import AlertBox from "../../../utilcomponents/AlertBox";
 
 function Tab1() {
   const [instituteName, setInsituteName] = useState("");
@@ -9,10 +10,18 @@ function Tab1() {
     id: "",
     name: "",
   });
-  const [prevName,setPrevName] = useState("");
+  const [prevName, setPrevName] = useState("");
   const [sortState, setSortState] = useState({
     sort: "common_institute_division_id",
     ascending: false,
+  });
+
+  //for alert messages
+  const [alertBoxDisplayVisible, setAlertBoxDisplayVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState({
+    type: "info",
+    heading: "",
+    message: "",
   });
 
   const sortedData = useMemo(() => {
@@ -29,8 +38,6 @@ function Tab1() {
       return 0;
     });
   }, [sortState, jsonData]);
-
- 
 
   const handleSortChange = (sort) => {
     if (sortState.sort === sort) {
@@ -62,8 +69,21 @@ function Tab1() {
         console.log(text);
         if (text === "Success") {
           setInsituteName("");
+
           loadTable();
+          setAlertMessage({
+            heading: "Division Name",
+            message: "Division Name is added successfully",
+            type: "Success",
+          });
+        } else {
+          setAlertMessage({
+            heading: "Division Name",
+            message: text,
+            type: "Error",
+          });
         }
+        setAlertBoxDisplayVisible(true);
       });
   };
 
@@ -77,6 +97,19 @@ function Tab1() {
       .then((res) => res.text())
       .then((text) => {
         console.log(text);
+        if (text === "Success") {
+          setAlertMessage({
+            heading: "Division Name",
+            message: "Division Name is updated successfully",
+            type: "Success",
+          });
+        } else {
+          setAlertMessage({
+            heading: "Division Name",
+            message: text,
+            type: "Error",
+          });
+        }
       });
 
     setUpdateState({
@@ -84,8 +117,9 @@ function Tab1() {
       name: "",
       id: "",
     });
-    setPrevName("")
-    loadTable()
+    setPrevName("");
+    setAlertBoxDisplayVisible(true);
+    loadTable();
   };
   const loadTable = async () => {
     let url = "http://localhost:8080/view_common_institutes";
@@ -105,73 +139,93 @@ function Tab1() {
     console.log("sorted data ", sortedData);
   }, []);
   useEffect(() => {
-    console.log(updateState);
-  }, [updateState]);
+    if (alertBoxDisplayVisible) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [alertBoxDisplayVisible]);
 
   return (
-    <div className="h-[100%] w-full flex flex-col ">
-      {/* form */}
-      <div className="grid grid-cols-5">
-        <div className="flex flex-col gap-y-3">
-          <span>Name</span>
-          <div className="flex flex-row gap-x-4">
-            {/* when updating state is on, a different input */}
-            {updateState.status ? (
-              <input
-                type="text"
-                placeholder="name"
-                className="px-3 pb-0 font-bold text-black bg-gray-500"
-                onChange={(event) => {
-                  // if(event.target.value === )
-                  setPrevName(event.target.value)
-                  setUpdateState(() => ({
-                    name: event.target.value,
-                    id:updateState.id,
-                    status:updateState.status
-                  }));
-                }}
-                value={prevName}
-              />
-            ) : (
-              <input
-                type="text"
-                placeholder="name"
-                className="px-3 pb-0 text-black"
-                onChange={(event) => {
-                  setInsituteName(event.target.value);
-                }}
-                value={instituteName}
-              />
-            )}
+    <>
+      <div className="h-[100%] w-full flex flex-col ">
+        {/* form */}
+        <div className="grid grid-cols-5">
+          <div className="flex flex-col gap-y-3">
+            <span>Name</span>
+            <div className="flex flex-row gap-x-4">
+              {/* when updating state is on, a different input */}
+              {updateState.status ? (
+                <input
+                  type="text"
+                  placeholder="name"
+                  className="px-3 pb-0 font-bold text-black bg-gray-500"
+                  onChange={(event) => {
+                    // if(event.target.value === )
+                    setPrevName(event.target.value);
+                    setUpdateState(() => ({
+                      name: event.target.value,
+                      id: updateState.id,
+                      status: updateState.status,
+                    }));
+                  }}
+                  value={prevName}
+                />
+              ) : (
+                <input
+                  type="text"
+                  placeholder="name"
+                  className="px-3 pb-0 text-black"
+                  onChange={(event) => {
+                    setInsituteName(event.target.value);
+                  }}
+                  value={instituteName}
+                />
+              )}
 
-            {updateState.status ? (
-              <button
-                onClick={() => update()}
-                className="px-3 pb-1 rounded-lg bg-secondary-blue dark:bg-secondary-lightMode"
-              >
-                Update
-              </button>
-            ) : (
-              <button
-                onClick={() => add()}
-                className="px-3 pb-1 rounded-lg bg-secondary-blue dark:bg-secondary-lightMode"
-              >
-                Add
-              </button>
-            )}
+              {updateState.status ? (
+                <button
+                  onClick={() => update()}
+                  className="px-3 pb-1 rounded-lg bg-secondary-blue dark:bg-secondary-lightMode"
+                >
+                  Update
+                </button>
+              ) : (
+                <button
+                  onClick={() => add()}
+                  className="px-3 pb-1 rounded-lg bg-secondary-blue dark:bg-secondary-lightMode"
+                >
+                  Add
+                </button>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="py-3">
-        <Table
-          onSortChange={handleSortChange}
-          json={sortedData}
-          setUpdateState={setUpdateState}
-          setPrevName={setPrevName}
+        <div className="py-3">
+          <Table
+            onSortChange={handleSortChange}
+            json={sortedData}
+            setUpdateState={setUpdateState}
+            setPrevName={setPrevName}
+          />
+        </div>
+      </div>
+      <div
+        className={
+          alertBoxDisplayVisible
+            ? "absolute justify-center items-center top-0 left-0 z-50 flex w-full h-[100%] overflow-hidden "
+            : "hidden"
+        }
+      >
+        <div className="absolute z-[-1] w-full h-full bg-gray-900 opacity-80"></div>
+        <AlertBox
+          setDisplayVisible={setAlertBoxDisplayVisible}
+          alertMessage={alertMessage}
+          setAlertMessage={setAlertMessage}
         />
       </div>
-    </div>
+    </>
   );
 }
 
