@@ -9,6 +9,7 @@ class CommonInstituteModel extends Model
 {
     protected $table = 'common_institute_division';
     protected $allowedFields = ['division_name', 'created_at', 'created_by', 'updated_at', 'updated_by'];
+    protected $primaryKey = 'common_institute_division_id';
 
 
     public function nameExists($name)

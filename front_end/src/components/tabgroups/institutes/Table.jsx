@@ -2,10 +2,18 @@ import React from "react";
 
 function Table(props) {
   // console.log("props are",props.json)
-  const {onSortChange,json} = props;
+  const {setPrevName,setUpdateState,onSortChange,json} = props;
    
   const handleSortClick = (sort) =>{
     onSortChange(sort);
+  }
+  const handleUpdateState = (id,name)=>{
+    setPrevName(name)
+    setUpdateState({
+        status: true,
+        id:id,
+        name:name,
+    })
   }
   const DisplayData = json.map((info) => {
     return (
@@ -22,7 +30,10 @@ function Table(props) {
         </td>
         <td className="px-6 py-4 whitespace-nowrap">{info.created_by}</td>
         <td className="px-6 py-4 whitespace-nowrap">
-          <button className="px-2 pb-1 bg-secondary-blue">Update</button>
+          
+            <button onClick={()=>{handleUpdateState(info.common_institute_division_id,info.division_name)}}  className="px-2 pb-1 rounded-md bg-secondary-blue dark:bg-secondary-lightMode">Update</button>
+          
+          
         </td>
       </tr>
     );
